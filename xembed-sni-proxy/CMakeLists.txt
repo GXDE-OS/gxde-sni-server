@@ -42,7 +42,7 @@ ecm_qt_declare_logging_category(XEMBED_SNI_PROXY_SOURCES HEADER debug.h
                                                CATEGORY_NAME kde.xembedsniproxy
                                                DEFAULT_SEVERITY Info
                                                DESCRIPTION "xembed sni proxy"
-                                               EXPORT PLASMAWORKSPACE
+                                               EXPORT GXDESNISERVER
                                            )
 
 add_executable(xembedsniproxy ${XEMBED_SNI_PROXY_SOURCES})

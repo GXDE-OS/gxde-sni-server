@@ -20,5 +20,5 @@ ecm_qt_declare_logging_category(statusnotifierwatcher
     IDENTIFIER STATUSNOTIFIERITEMWATCHER
     CATEGORY_NAME org.kde.plasma.statusnotifierwatcher
     DESCRIPTION "Status Notifier Manager"
-    EXPORT PLASMAWORKSPACE
+    EXPORT GXDESNISERVER
 )
