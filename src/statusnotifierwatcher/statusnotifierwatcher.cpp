@@ -10,18 +10,12 @@
 #include <QDBusServiceWatcher>
 #include <QDebug>
 
-#include <kpluginfactory.h>
-
 #include "statusnotifieritem_interface.h"
-#include "statusnotifierwatcher_debug.h"
 #include "statusnotifierwatcheradaptor.h"
 
-K_PLUGIN_CLASS_WITH_JSON(StatusNotifierWatcher, "statusnotifierwatcher.json")
-
 StatusNotifierWatcher::StatusNotifierWatcher(QObject *parent, const QList<QVariant> &)
-    : KDEDModule(parent)
+    : QObject(parent)
 {
-    setModuleName(QStringLiteral("StatusNotifierWatcher"));
     new StatusNotifierWatcherAdaptor(this);
     QDBusConnection dbus = QDBusConnection::sessionBus();
     dbus.registerObject(QStringLiteral("/StatusNotifierWatcher"), this);
@@ -33,7 +27,9 @@ StatusNotifierWatcher::StatusNotifierWatcher(QObject *parent, const QList<QVaria
     connect(m_serviceWatcher, &QDBusServiceWatcher::serviceUnregistered, this, &StatusNotifierWatcher::serviceUnregistered);
 }
 
-StatusNotifierWatcher::~StatusNotifierWatcher() = default;
+StatusNotifierWatcher::~StatusNotifierWatcher()
+{
+}
 
 void StatusNotifierWatcher::RegisterStatusNotifierItem(const QString &serviceOrPath)
 {
@@ -55,7 +51,7 @@ void StatusNotifierWatcher::RegisterStatusNotifierItem(const QString &serviceOrP
         // check if the service has registered a SystemTray object
         org::kde::StatusNotifierItem trayclient(service, path, QDBusConnection::sessionBus());
         if (trayclient.isValid()) {
-            qCDebug(STATUSNOTIFIERITEMWATCHER) << "Registering" << notifierItemId << "to system tray";
+            qDebug() << "Registering" << notifierItemId << "to system tray";
             m_registeredServices.append(notifierItemId);
             Q_EMIT StatusNotifierItemRegistered(notifierItemId);
         } else {
@@ -73,7 +69,7 @@ QStringList StatusNotifierWatcher::RegisteredStatusNotifierItems() const
 
 void StatusNotifierWatcher::serviceUnregistered(const QString &name)
 {
-    qCDebug(STATUSNOTIFIERITEMWATCHER) << "Service " << name << "unregistered";
+    qDebug() << "Service " << name << "unregistered";
     m_serviceWatcher->removeWatchedService(name);
 
     const QString match = name + QLatin1Char('/');

@@ -6,8 +6,6 @@
 
 #pragma once
 
-#include <kdedmodule.h>
-
 #include <QDBusContext>
 #include <QObject>
 #include <QSet>
@@ -15,7 +13,7 @@
 
 class QDBusServiceWatcher;
 
-class StatusNotifierWatcher : public KDEDModule, protected QDBusContext
+class StatusNotifierWatcher : public QObject, protected QDBusContext
 {
     Q_OBJECT
     Q_PROPERTY(QStringList RegisteredStatusNotifierItems READ RegisteredStatusNotifierItems)

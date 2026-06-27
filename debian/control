@@ -6,12 +6,11 @@ Build-Depends:
  cmake,
  debhelper-compat (= 13),
  extra-cmake-modules,
- libkf6coreaddons-dev (>= 6.26.0),
- libkf6crash-dev (>= 6.26.0),
- libkf6dbusaddons-dev (>= 6.26.0),
- libkf6kded-dev (>= 6.26.0),
- libkf6statusnotifieritem-dev (>= 6.26.0),
- qt6-base-dev (>= 6.10.0),
+ libkf6coreaddons-dev (>= 6.10.0),
+ libkf6crash-dev (>= 6.10.0),
+ libkf6dbusaddons-dev (>= 6.10.0),
+ libkf6statusnotifieritem-dev (>= 6.10.0),
+ qt6-base-dev (>= 6.7.0),
 Standards-Version: 4.7.0
 Homepage: https://gitee.com/GXDE-OS/gxde-sni-server
 Rules-Requires-Root: no

@@ -28,38 +28,35 @@
 #include "config-workspace.h"
 #include "statusnotifierwatcher.h"
 
-bool isWayland() {
-    return qgetenv("XDG_SESSION_TYPE").compare("wayland") == 0;
+static bool isWayland() {
+    return qgetenv("XDG_SESSION_TYPE") == QByteArrayLiteral("wayland");
 }
 
 int main(int argc, char** argv) {
     QCoreApplication app(argc, argv);
 
-    KAboutData aboutData(QStringLiteral("gxde-sni-server"),
+    KAboutData about(QStringLiteral("gxde-sni-server"),
         QStringLiteral("GXDE SNI Server"),
         QStringLiteral(WORKSPACE_VERSION_STRING));
-
-    KAboutData::setApplicationData(aboutData);
+    KAboutData::setApplicationData(about);
     KCrash::initialize();
-    app.setQuitOnLastWindowClosed(false);
 
     if (!isWayland()) {
-        qInfo()
-            << "(Init) Wayland-check: GXDE SNI Server is designed for wayland."
-            << "On X11 dde-daemon will handle the SNI registry,"
-            << "exiting normally..."
+        qInfo() << "(Init) Wayland-check: XDG_SESSION_TYPE is NOT wayland!!"
+                << "dde-daemon handles SNI on X11, exiting normally...";
         return 0;
     }
 
     QDBusConnection sessionBus = QDBusConnection::sessionBus();
     if (!sessionBus.registerService(QStringLiteral("org.kde.StatusNotifierWatcher"))) {
-        qFatal() << "(DBus) Reg: Failed to register"
-            << "org.kde.StatusNotifierWatcher.";
-        qFatal() << "            Is another instance running?";
-        exit -1;
+        qCritical() << "(DBus) Reg: Failed to register server D-Bus."
+                     << "Is another instance already running?";
+        return -1;
     }
 
-    auto* watcher = new StatusNotifierWatcher(nullptr, {});
+    auto *watcher = new StatusNotifierWatcher(nullptr, {});
     KDBusService service(KDBusService::Unique);
+
+    qInfo() << "(Main) Init: GXDE SNI Server shall be started.";
     return app.exec();
 }
