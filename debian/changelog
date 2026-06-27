@@ -1,0 +1,6 @@
+gxde-sni-server (1.0.0-gxde1) unstable; urgency=medium
+
+  * Initial release.
+  * Adapted StatusNotifierWatcher from Plasma workspace v6.7.1.
+
+ -- CharOfString <markus_verify@126.com>  Sat, 27 Jun 2026 16:11:01 +0800

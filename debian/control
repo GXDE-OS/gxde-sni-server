@@ -1,0 +1,24 @@
+Source: gxde-sni-server
+Section: kde
+Priority: optional
+Maintainer: CharOfString <markus_verify@126.com>
+Build-Depends:
+ cmake,
+ debhelper-compat (= 13),
+ extra-cmake-modules,
+ libkf6coreaddons-dev (>= 6.26.0),
+ libkf6crash-dev (>= 6.26.0),
+ libkf6dbusaddons-dev (>= 6.26.0),
+ libkf6kded-dev (>= 6.26.0),
+ libkf6statusnotifieritem-dev (>= 6.26.0),
+ qt6-base-dev (>= 6.10.0),
+Standards-Version: 4.7.0
+Homepage: https://gitee.com/GXDE-OS/gxde-sni-server
+Rules-Requires-Root: no
+
+Package: gxde-sni-server
+Architecture: any
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+Description: GXDE StatusNotifierItem server for wayland.
