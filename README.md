@@ -28,6 +28,21 @@ Original code has been modified so the this package is no longer depending on `K
 
 
 
+## Compiling | 编译
+
+```bash 
+# Generate package · 生成DEB包
+$ chmod a+x ./build-deb
+$ ./build-deb -d
+
+# Cleanup when you copied away the artifacts · 备份好DEB包后执行清理
+$ ./build-deb -c
+```
+
+
+
+
+
 ## Original README | 原版README
 
 Original README could be found [here](./README.original.md).
