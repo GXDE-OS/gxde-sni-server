@@ -1,0 +1,31 @@
+# Maintainer: CharOfString <root@charofstring.cc>
+pkgname=gxde-sni-server-git
+pkgver=1.0.0
+pkgrel=1
+pkgdesc='StatusNotifierItem server for GXDE'
+arch=('x86_64' 'aarch64')
+url="https://github.com/GXDE-OS/gxde-sni-server"
+license=('GPL-3.0-or-later')
+depends=('qt6-base' 'kcoreaddons' 'kcrash' 'kdbusaddons' 'kstatusnotifieritem'
+         'libgcc' 'libstdc++' 'glibc')
+makedepends=('git' 'cmake' 'ninja' 'extra-cmake-modules')
+provides=('gxde-sni-server')
+conflicts=('gxde-sni-server')
+source=()
+sha512sums=()
+
+# 直接使用 PKGBUILD 所在的 git 仓库作为源码 ・ Build from the git checkout this PKGBUILD lives in.
+_srcroot() {
+  git -C "$startdir" rev-parse --show-toplevel
+}
+
+build() {
+  cmake -B build -S "$(_srcroot)" -GNinja \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  ninja -C build
+}
+
+package() {
+  DESTDIR="$pkgdir" ninja -C build install
+}
