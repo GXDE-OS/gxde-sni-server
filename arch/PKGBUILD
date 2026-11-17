@@ -1,5 +1,5 @@
 # Maintainer: CharOfString <root@charofstring.cc>
-pkgname=gxde-sni-server-git
+pkgname=gxde-sni-server
 pkgver=1.0.0
 pkgrel=1
 pkgdesc='StatusNotifierItem server for GXDE'
@@ -9,8 +9,9 @@ license=('GPL-3.0-or-later')
 depends=('qt6-base' 'kcoreaddons' 'kcrash' 'kdbusaddons' 'kstatusnotifieritem'
          'libgcc' 'libstdc++' 'glibc')
 makedepends=('git' 'cmake' 'ninja' 'extra-cmake-modules')
-provides=('gxde-sni-server')
-conflicts=('gxde-sni-server')
+provides=("gxde-sni-server-git=$pkgver")
+conflicts=('gxde-sni-server-git')
+replaces=('gxde-sni-server-git')
 source=()
 sha512sums=()
 
